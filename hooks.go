@@ -35,10 +35,10 @@ func main() {
 		}
 		switch payload.(type) {
 
-		case github.PushPayload:
+		case github.ReleasePayload:
 			pushRequest := payload.(github.PushPayload)
 			fmt.Printf("%+v", pushRequest)
-		case github.ReleasePayload:
+		case github.PushPayload:
 			release := payload.(github.ReleasePayload)
 			// Do whatever you want from here...
 			fmt.Printf("%+v", release)
@@ -48,11 +48,15 @@ func main() {
 			} else {
 				log.Printf("A new build was completed.")
 			}
+		case github.PingPayload:
+			pingRequest := payload.(github.PingPayload)
+			log.Printf("a ping request was sent %v", pingRequest)
 
 		case github.PullRequestPayload:
 			pullRequest := payload.(github.PullRequestPayload)
 			// Do whatever you want from here...
 			fmt.Printf("%+v", pullRequest)
+			
 		default:
 			log.Printf("This is not Github hooks request, %v", payload)
 			http.Error(w, "Unauthorized access", 401)

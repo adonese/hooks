@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2536a572-4c75-4eab-bf3b-5fbe249214b1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/hooks.go" beforeDir="false" afterPath="$PROJECT_DIR$/hooks.go" afterDir="false" />
-    </list>
+    <list default="true" id="2536a572-4c75-4eab-bf3b-5fbe249214b1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +80,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="77" y="55" width="1160" height="650" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24954955" />

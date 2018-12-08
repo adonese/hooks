@@ -15,7 +15,10 @@ const (
 )
 
 func main() {
-	f, _ := os.OpenFile("hooks.log", os.O_RDWR, 0666)
+	f, err := os.OpenFile("hooks.log", os.O_RDWR|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("Unable to create/open log file %v", err)
+	}
 
 	defer f.Close()
 
@@ -27,7 +30,7 @@ func main() {
 		if err != nil {
 			if err == github.ErrEventNotFound {
 				// ok event wasn;t one of the ones asked to be parsed
-				log.Fatalf("There is no event anyway.")
+				log.Printf("There is no event anyway.")
 			}
 		}
 		switch payload.(type) {
@@ -40,8 +43,8 @@ func main() {
 			// Do whatever you want from here...
 			fmt.Printf("%+v", release)
 			shellScript := "./script.sh"
-			if _, err := exec.Command("/bin/sh", "-c", shellScript).Output(); err != nil{
-				log.Fatalf("Unable to docker compose, %v", err)
+			if _, err := exec.Command("/bin/sh", "-c", shellScript).Output(); err != nil {
+				log.Printf("Unable to docker compose, %v", err)
 			} else {
 				log.Printf("A new build was completed.")
 			}
@@ -50,7 +53,11 @@ func main() {
 			pullRequest := payload.(github.PullRequestPayload)
 			// Do whatever you want from here...
 			fmt.Printf("%+v", pullRequest)
+		default:
+			log.Printf("This is not Github hooks request, %v", payload)
+			http.Error(w, "Unauthorized access", 401)
 		}
+
 	})
 	http.ListenAndServe(":3000", nil)
 }

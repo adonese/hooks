@@ -26,7 +26,7 @@ func main() {
 	hook, _ := github.New(github.Options.Secret("953507cbb10c25e9284040d4def099f0c57d1813"))
 
 	http.HandleFunc(path, func(w http.ResponseWriter, r *http.Request) {
-		payload, err := hook.Parse(r, github.PushEvent, github.ReleaseEvent, github.PullRequestEvent)
+		payload, err := hook.Parse(r, github.PushEvent, github.ReleaseEvent, github.PullRequestEvent, github.PingEvent)
 		if err != nil {
 			if err == github.ErrEventNotFound {
 				// ok event wasn;t one of the ones asked to be parsed
@@ -56,7 +56,7 @@ func main() {
 			pullRequest := payload.(github.PullRequestPayload)
 			// Do whatever you want from here...
 			fmt.Printf("%+v", pullRequest)
-			
+
 		default:
 			log.Printf("This is not Github hooks request, %v", payload)
 			http.Error(w, "Unauthorized access", 401)

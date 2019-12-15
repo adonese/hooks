@@ -1,6 +1,7 @@
 !/bin/sh
 
-DIR=/home/ubuntu/sources/test_noebs/
+DIR=/home/ubuntu/me/soluswebportel
 cd $DIR
 
-./docker-compose up --build -d
+npm run-script build
+
